@@ -18,11 +18,17 @@ import {
   FileWarning, 
   Clock 
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import heroImg from '../assets/check-voter-hero.png';
 
+interface InfoModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
+
 // Reusable Modal Component
-const InfoModal = ({ isOpen, onClose, title, children }) => {
+const InfoModal: React.FC<InfoModalProps> = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in" onClick={onClose}>
@@ -49,14 +55,12 @@ const InfoModal = ({ isOpen, onClose, title, children }) => {
   );
 };
 
-export const CheckVoterListPage = () => {
-  const [modalState, setModalState] = useState(null); // 'all-issues' | 'search-help' | 'what-you-see' | 'advanced-options' | null
+export const CheckVoterListPage: React.FC = () => {
+  const [modalState, setModalState] = useState<string | null>(null); // 'all-issues' | 'search-help' | 'what-you-see' | 'advanced-options' | null
 
   return (
     <main id="main-content" className="flex-1 flex flex-col bg-[#F9FAFB] pb-32 relative overflow-x-hidden">
       
-
-
       {/* Hero Section */}
       <div className="pt-2 pb-8 relative overflow-hidden">
         <div className="w-[60%] relative z-10 pt-4">

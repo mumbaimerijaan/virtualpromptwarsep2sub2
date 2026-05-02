@@ -14,16 +14,18 @@ import {
 } from 'lucide-react';
 import { useDebounce } from '../hooks/useDebounce';
 import { memo } from 'react';
-import faqData from '../assets/faqs_full.json';
+import faqData from '../data/faqs_full.json';
 import faqHeroImg from '../assets/faq-hero.png';
+import { FAQ, FAQData } from '../utils/intentMatcher';
+import { FAQItemProps, TabIcons } from '../types/components';
 
-const FAQItem = memo(({ faq, index, isOpen, onToggle }) => {
+const FAQItem: React.FC<FAQItemProps> = memo(({ faq, index, isOpen, onToggle }) => {
   return (
     <div className={`border-b border-slate-100 last:border-0 overflow-hidden transition-all duration-300 ${isOpen ? 'bg-indigo-50/30' : ''}`}>
       <button 
         onClick={onToggle}
         aria-expanded={isOpen}
-        aria-controls={`faq-content-${faq.id}`}
+        aria-controls={`faq-content-${faq.id as string}`}
         className="w-full py-5 px-4 flex items-start gap-4 text-left group"
       >
         <span className="text-[14px] font-bold text-indigo-400 mt-1" aria-hidden="true">
@@ -38,9 +40,9 @@ const FAQItem = memo(({ faq, index, isOpen, onToggle }) => {
       </button>
       
       <div 
-        id={`faq-content-${faq.id}`}
+        id={`faq-content-${faq.id as string}`}
         role="region"
-        aria-labelledby={`faq-button-${faq.id}`}
+        aria-labelledby={`faq-button-${faq.id as string}`}
         className={`px-4 overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? 'max-h-[800px] pb-6' : 'max-h-0'
         }`}
@@ -66,16 +68,16 @@ const FAQItem = memo(({ faq, index, isOpen, onToggle }) => {
   );
 });
 
-export const FAQPage = () => {
+export const FAQPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearch = useDebounce(searchQuery, 300);
-  const [activeTab, setActiveTab] = useState(faqData.tabs[0].title);
-  const [expandedId, setExpandedId] = useState(null);
+  const [activeTab, setActiveTab] = useState((faqData as FAQData).tabs[0].label);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   // Icons mapping
-  const tabIcons = {
+  const tabIcons: TabIcons = {
     'Resident Electors': Users,
     'Electronic Voting Machine': Printer,
     'Model Code of Conduct (MCC)': ShieldCheck,
@@ -86,13 +88,13 @@ export const FAQPage = () => {
 
   const filteredFaqs = useMemo(() => {
     if (!debouncedSearch.trim()) {
-      const currentTab = faqData.tabs.find(t => t.title === activeTab);
+      const currentTab = (faqData as FAQData).tabs.find(t => t.label === activeTab);
       return currentTab ? currentTab.faqs : [];
     }
 
     const query = debouncedSearch.toLowerCase();
-    let allFaqs = [];
-    faqData.tabs.forEach(tab => {
+    let allFaqs: FAQ[] = [];
+    (faqData as FAQData).tabs.forEach(tab => {
       allFaqs = [...allFaqs, ...tab.faqs];
     });
 
@@ -154,13 +156,13 @@ export const FAQPage = () => {
         {/* Tabs - Only show if not searching */}
         {!searchQuery && (
           <div className="flex overflow-x-auto gap-4 pb-2 -mx-5 px-5 scrollbar-hide no-scrollbar">
-            {faqData.tabs.map((tab) => {
-              const Icon = tabIcons[tab.title] || HelpCircle;
-              const isActive = activeTab === tab.title;
+            {(faqData as FAQData).tabs.map((tab) => {
+              const Icon = tabIcons[tab.label] || HelpCircle;
+              const isActive = activeTab === tab.label;
               return (
                 <button
-                  key={tab.title}
-                  onClick={() => setActiveTab(tab.title)}
+                  key={tab.label}
+                  onClick={() => setActiveTab(tab.label)}
                   className="flex flex-col items-center gap-3 min-w-[100px] transition-all"
                 >
                   <div className={`w-14 h-14 rounded-[18px] flex items-center justify-center transition-all ${
@@ -170,7 +172,7 @@ export const FAQPage = () => {
                   </div>
                   <div className="flex flex-col items-center gap-1">
                     <span className={`text-[11px] font-bold text-center leading-tight whitespace-nowrap ${isActive ? 'text-indigo-600' : 'text-slate-500'}`}>
-                      {tab.title.length > 15 ? tab.title.split(' ')[0] + '...' : tab.title}
+                      {tab.label.length > 15 ? tab.label.split(' ')[0] + '...' : tab.label}
                     </span>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-indigo-50 text-indigo-600' : 'bg-slate-100 text-slate-400'}`}>
                       {tab.faqs.length}
@@ -201,11 +203,11 @@ export const FAQPage = () => {
           {paginatedFaqs.length > 0 ? (
             paginatedFaqs.map((faq, index) => (
               <FAQItem 
-                key={faq.id} 
+                key={faq.id as string} 
                 faq={faq} 
                 index={(currentPage - 1) * itemsPerPage + index}
                 isOpen={expandedId === faq.id}
-                onToggle={() => setExpandedId(expandedId === faq.id ? null : faq.id)}
+                onToggle={() => setExpandedId(expandedId === faq.id ? null : faq.id as string)}
               />
             ))
           ) : (

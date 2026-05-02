@@ -22,6 +22,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
+      // Enforced Production Quality Gates
       thresholds: {
         'src/services/**': 95,
         'server/**': 95,

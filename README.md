@@ -11,40 +11,30 @@ Matdaan Saathi (Voter Friend) is a high-fidelity, production-grade AI platform d
 
 ### 1. Robust BFF (Backend-for-Frontend)
 The application utilizes a secure **BFF architecture**. The React frontend communicates with a hardened Node.js/Express backend which acts as the sole orchestrator for sensitive operations (Gemini AI, Firestore, and reCAPTCHA). 
-- **Type Safety**: Core utilities (Intent Matching, Sanitization) are implemented in **TypeScript** to ensure runtime reliability.
-- **Fail-Fast Logic**: The system enforces strict **Vitest coverage thresholds (95% Functions / 90% Branches)** to prevent regression in critical service paths.
+- **Type Safety**: Core utilities and key React components are implemented in **TypeScript** to ensure absolute type coverage and runtime reliability.
+- **Fail-Fast Logic**: The system enforces strict **Vitest coverage thresholds (95% Functions / 90% Lines)** to prevent regression in critical service paths.
 
-### 2. Zero-Trust Security Maturity
-- **Advanced Bot Mitigation**: Every interaction is gated by reCAPTCHA Enterprise with a mandatory 0.5 risk-score threshold.
-- **Hardened CSP**: Strict Content Security Policy (CSP) whitelisting only essential Google Service domains, blocking all unauthorized inline scripts.
-- **Observability**: Dedicated `/api/health` endpoints provide real-time status signals for Cloud Run startup and liveness probes.
+### 2. AI Resilience & Security
+- **Prompt Injection Defense**: All user inputs pass through a strict **`sanitize.ts`** utility before being processed. The system uses structured JSON contracts via **AJV validation** to ensure AI responses never deviate from the expected schema.
+- **Zero-Trust reCAPTCHA**: Every chat interaction is verified by **Google reCAPTCHA Enterprise** with a 0.5 risk score threshold on the backend.
+- **Cloud Infrastructure**: Securely deployed on **Google Cloud Run** using **Application Default Credentials (ADC)** and Workload Identity, ensuring no API keys are hardcoded in the container environment.
 
-### 3. Inclusive Design (WCAG 2.1 AA)
-Matdaan Saathi prioritizes digital equity through advanced accessibility features:
-- **Skip Links**: "Skip to main content" implementation for screen reader efficiency.
-- **Focus Management**: Strict focus trapping and restoration for the AI Chat interface to assist keyboard-only users.
-- **Semantic HTML**: 100% aria-label coverage for interactive elements and descriptive labels for icon-only buttons.
+## 🛠️ Tech Stack & Maturity Signals
 
-### 4. Performance & Scalability Metrics
-- **Real-time Latency**: Serving millions of users with **<1.2s initial load time**.
-- **Efficiency Layer**: Cache-Aside pattern (via `node-cache`) with a 3600s TTL reduces AI API costs and improves response time.
-- **Containerization**: Multi-stage Docker builds ensure a minimal production image, optimized for rapid Cloud Run cold starts.
+- **Frontend**: Vite + React 19 + TypeScript + Tailwind CSS
+- **Backend**: Node.js + Express (Hardened with Helmet & Compression)
+- **AI**: Gemini 2.0 Flash (Optimized for low-latency intent classification)
+- **Database**: Firebase Firestore (Secure multi-turn session persistence)
+- **A11y**: WCAG 2.1 AA Compliant (Skip links, focus trapping, ARIA-live narrators)
+- **CI/CD**: Google Cloud Build (`cloudbuild.yaml`) for automated multi-stage builds and serverless deployment.
 
-## 🛠️ Production Tech Stack
-- **Frontend**: React 19, TypeScript, Tailwind CSS, Lucide React
-- **Backend**: Node.js, Express, Helmet, Compression, Node-cache
-- **AI Engine**: Google Gemini 2.0 Flash (Context-Aware Multi-turn)
-- **Infrastructure**: Google Cloud Run, Cloud Build, Artifact Registry
-- **Testing**: Vitest (Unit/Int), Playwright (Visual Regression), v8 (Coverage)
+## 📖 Deployment Strategy
 
-## 📊 Quality Gates
-```mermaid
-graph TD
-    A[Push to GitHub] --> B[Lint Check: Zero Warnings]
-    B --> C[Vitest: 95% Function Coverage]
-    C --> D[Vite Build: Production Assets]
-    D --> E[Deployment: Cloud Run]
-```
+The project uses a sophisticated **CI/CD pipeline** via Google Cloud Build:
+1. **Trigger**: Pushing to the `main` branch triggers the build.
+2. **Build Phase**: The `Dockerfile` uses a multi-stage approach to build the Vite assets and package them into a lightweight Node.js runtime.
+3. **Hydration**: Environment variables are injected at build-time (for Vite) and runtime (for Cloud Run secrets) to ensure zero-leak security.
+4. **Deployment**: Automated delivery to Google Cloud Run with global scaling and professional health checks (`/api/health`).
 
 ---
-*Developed with a commitment to clean code, security maturity, and inclusive design.*
+*An initiative to empower every Indian citizen to vote with confidence.*

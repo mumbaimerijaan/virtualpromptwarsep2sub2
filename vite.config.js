@@ -23,8 +23,13 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       thresholds: {
-        'src/services/**': 80,
-        'server/**': 80
+        'src/services/**': 95,
+        'server/**': 95,
+        'src/utils/**': 95,
+        branches: 90,
+        functions: 95,
+        lines: 90,
+        statements: 90
       },
       exclude: [
         'node_modules/**',

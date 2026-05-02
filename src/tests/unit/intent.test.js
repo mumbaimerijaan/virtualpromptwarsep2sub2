@@ -18,4 +18,20 @@ describe('Intent Matcher Logic', () => {
     const match = findFAQMatch('How to cook pasta?');
     expect(match).toBeNull();
   });
+
+  it('should handle garbage input gracefully', () => {
+    const match = findFAQMatch('!@#$%^&*()_+');
+    expect(match).toBeNull();
+  });
+
+  it('should handle injection-like strings safely', () => {
+    const match = findRouteMatch('<script>alert("xss")</script>');
+    expect(match).toBeNull();
+  });
+
+  it('should handle very long strings without crashing', () => {
+    const longString = 'a'.repeat(1000);
+    const match = findFAQMatch(longString);
+    expect(match).toBeNull();
+  });
 });

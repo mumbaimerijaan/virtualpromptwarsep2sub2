@@ -1,18 +1,40 @@
-import faqData from '../assets/faqs_full.json';
+import faqData from '../data/faqs_full.json';
 import { ROUTES } from '../lib/routes';
+
+export interface FAQ {
+  question: string;
+  answer: string;
+  keywords?: string[];
+  search_text?: string;
+  category?: string;
+}
+
+export interface FAQData {
+  tabs: {
+    id: string;
+    label: string;
+    faqs: FAQ[];
+  }[];
+}
+
+export interface RouteMatch {
+  keywords: string[];
+  route: string;
+  title: string;
+}
 
 /**
  * Finds a matching FAQ based on user input.
- * @param {string} query The user input query.
- * @returns {object|null} The best matching FAQ or null.
+ * @param query The user input query.
+ * @returns The best matching FAQ or null.
  */
-export const findFAQMatch = (query) => {
+export const findFAQMatch = (query: string): FAQ | null => {
   if (!query) return null;
   const q = query.toLowerCase();
-  let bestMatch = null;
+  let bestMatch: FAQ | null = null;
   let maxScore = 0;
 
-  faqData.tabs.forEach(tab => {
+  (faqData as FAQData).tabs.forEach(tab => {
     tab.faqs.forEach(faq => {
       let score = 0;
       if (faq.question.toLowerCase().includes(q)) score += 10;
@@ -31,13 +53,13 @@ export const findFAQMatch = (query) => {
 
 /**
  * Finds a matching route based on keywords.
- * @param {string} query The user input query.
- * @returns {object|null} The matching page object or null.
+ * @param query The user input query.
+ * @returns The matching page object or null.
  */
-export const findRouteMatch = (query) => {
+export const findRouteMatch = (query: string): RouteMatch | null => {
   if (!query) return null;
   const q = query.toLowerCase();
-  const pageMap = [
+  const pageMap: RouteMatch[] = [
     { keywords: ['register', 'form 6', 'new voter', 'apply', 'enroll'], route: ROUTES.REGISTER, title: 'Register as a Voter' },
     { keywords: ['status', 'track', 'application', 'reference', 'pending'], route: ROUTES.STATUS, title: 'Track Application Status' },
     { keywords: ['list', 'name', 'check name', 'epic', 'search', 'electoral roll'], route: ROUTES.CHECK_VOTER_LIST, title: 'Check Voter List' },

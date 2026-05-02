@@ -25,7 +25,7 @@ const FAQItem: React.FC<FAQItemProps> = memo(({ faq, index, isOpen, onToggle }) 
       <button 
         onClick={onToggle}
         aria-expanded={isOpen}
-        aria-controls={`faq-content-${faq.id as string}`}
+        aria-controls={`faq-content-${faq.id}`}
         className="w-full py-5 px-4 flex items-start gap-4 text-left group"
       >
         <span className="text-[14px] font-bold text-indigo-400 mt-1" aria-hidden="true">
@@ -40,9 +40,9 @@ const FAQItem: React.FC<FAQItemProps> = memo(({ faq, index, isOpen, onToggle }) 
       </button>
       
       <div 
-        id={`faq-content-${faq.id as string}`}
+        id={`faq-content-${faq.id}`}
         role="region"
-        aria-labelledby={`faq-button-${faq.id as string}`}
+        aria-labelledby={`faq-button-${faq.id}`}
         className={`px-4 overflow-hidden transition-all duration-300 ease-in-out ${
           isOpen ? 'max-h-[800px] pb-6' : 'max-h-0'
         }`}
@@ -71,7 +71,7 @@ const FAQItem: React.FC<FAQItemProps> = memo(({ faq, index, isOpen, onToggle }) 
 export const FAQPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearch = useDebounce(searchQuery, 300);
-  const [activeTab, setActiveTab] = useState((faqData as FAQData).tabs[0].label);
+  const [activeTab, setActiveTab] = useState((faqData as any).tabs[0].title);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -88,13 +88,13 @@ export const FAQPage: React.FC = () => {
 
   const filteredFaqs = useMemo(() => {
     if (!debouncedSearch.trim()) {
-      const currentTab = (faqData as FAQData).tabs.find(t => t.label === activeTab);
+      const currentTab = (faqData as any).tabs.find((t: any) => t.title === activeTab);
       return currentTab ? currentTab.faqs : [];
     }
 
     const query = debouncedSearch.toLowerCase();
     let allFaqs: FAQ[] = [];
-    (faqData as FAQData).tabs.forEach(tab => {
+    (faqData as any).tabs.forEach((tab: any) => {
       allFaqs = [...allFaqs, ...tab.faqs];
     });
 
@@ -156,13 +156,13 @@ export const FAQPage: React.FC = () => {
         {/* Tabs - Only show if not searching */}
         {!searchQuery && (
           <div className="flex overflow-x-auto gap-4 pb-2 -mx-5 px-5 scrollbar-hide no-scrollbar">
-            {(faqData as FAQData).tabs.map((tab) => {
-              const Icon = tabIcons[tab.label] || HelpCircle;
-              const isActive = activeTab === tab.label;
+            {(faqData as any).tabs.map((tab: any) => {
+              const Icon = tabIcons[tab.title] || HelpCircle;
+              const isActive = activeTab === tab.title;
               return (
                 <button
-                  key={tab.label}
-                  onClick={() => setActiveTab(tab.label)}
+                  key={tab.title}
+                  onClick={() => setActiveTab(tab.title)}
                   className="flex flex-col items-center gap-3 min-w-[100px] transition-all"
                 >
                   <div className={`w-14 h-14 rounded-[18px] flex items-center justify-center transition-all ${
@@ -172,7 +172,7 @@ export const FAQPage: React.FC = () => {
                   </div>
                   <div className="flex flex-col items-center gap-1">
                     <span className={`text-[11px] font-bold text-center leading-tight whitespace-nowrap ${isActive ? 'text-indigo-600' : 'text-slate-500'}`}>
-                      {tab.label.length > 15 ? tab.label.split(' ')[0] + '...' : tab.label}
+                      {tab.title.length > 15 ? tab.title.split(' ')[0] + '...' : tab.title}
                     </span>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-indigo-50 text-indigo-600' : 'bg-slate-100 text-slate-400'}`}>
                       {tab.faqs.length}
@@ -201,13 +201,13 @@ export const FAQPage: React.FC = () => {
         {/* FAQ List */}
         <div className="bg-white rounded-[24px] border border-slate-100 shadow-sm overflow-hidden">
           {paginatedFaqs.length > 0 ? (
-            paginatedFaqs.map((faq, index) => (
+            paginatedFaqs.map((faq: FAQ, index: number) => (
               <FAQItem 
-                key={faq.id as string} 
+                key={faq.id} 
                 faq={faq} 
                 index={(currentPage - 1) * itemsPerPage + index}
-                isOpen={expandedId === faq.id}
-                onToggle={() => setExpandedId(expandedId === faq.id ? null : faq.id as string)}
+                isOpen={expandedId === String(faq.id)}
+                onToggle={() => setExpandedId(expandedId === String(faq.id) ? null : String(faq.id))}
               />
             ))
           ) : (

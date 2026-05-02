@@ -2,6 +2,7 @@ import faqData from '../data/faqs_full.json';
 import { ROUTES } from '../lib/routes';
 
 export interface FAQ {
+  id: string | number;
   question: string;
   answer: string;
   keywords?: string[];
@@ -13,6 +14,7 @@ export interface FAQData {
   tabs: {
     id: string;
     label: string;
+    title?: string;
     faqs: FAQ[];
   }[];
 }

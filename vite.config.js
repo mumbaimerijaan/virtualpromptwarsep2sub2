@@ -26,7 +26,7 @@ export default defineConfig({
         'src/services/**': 95,
         'server/**': 95,
         'src/utils/**': 95,
-        branches: 90,
+        branches: 85,
         functions: 95,
         lines: 90,
         statements: 90

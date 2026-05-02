@@ -30,16 +30,34 @@ export interface RouteMatch {
  */
 export const findFAQMatch = (query: string): FAQ | null => {
   if (!query) return null;
-  const q = query.toLowerCase();
+  const q = query.toLowerCase().replace(/[^\w\s]/g, '').trim();
+  if (!q) return null;
+  
+  const commonWords = new Set(['how', 'to', 'is', 'the', 'a', 'an', 'what', 'can', 'i', 'do', 'should', 'where', 'will', 'of', 'for', 'at']);
+  const queryWords = q.split(/\s+/);
+  const significantQueryWords = queryWords.filter(w => !commonWords.has(w));
+
   let bestMatch: FAQ | null = null;
   let maxScore = 0;
 
   (faqData as FAQData).tabs.forEach(tab => {
     tab.faqs.forEach(faq => {
       let score = 0;
-      if (faq.question.toLowerCase().includes(q)) score += 10;
-      if (faq.search_text?.toLowerCase().includes(q)) score += 5;
-      if (faq.keywords?.some(k => q.includes(k.toLowerCase()))) score += 2;
+      const question = faq.question.toLowerCase();
+      
+      if (question === q) score += 20;
+      if (question.includes(q)) score += 10;
+      
+      // Match significant words against question, search_text, and keywords
+      const matchedSignificant = significantQueryWords.filter(w => 
+        question.includes(w) || 
+        faq.search_text?.toLowerCase().includes(w) ||
+        faq.keywords?.some(k => k.toLowerCase() === w)
+      );
+
+      if (matchedSignificant.length >= 1) {
+        score += 10 * matchedSignificant.length;
+      }
       
       if (score > maxScore) {
         maxScore = score;
@@ -48,7 +66,7 @@ export const findFAQMatch = (query: string): FAQ | null => {
     });
   });
 
-  return maxScore >= 5 ? bestMatch : null;
+  return maxScore >= 10 ? bestMatch : null;
 };
 
 /**

@@ -10,7 +10,10 @@ export const ECI_LINKS = {
   BLO_DETAILS: "https://voters.eci.gov.in/home/bookACallRequest",
   POLLING_STATION: "https://electoralsearch.eci.gov.in/pollingstation",
   NGRS_PORTAL: "https://voters.eci.gov.in/",
-  ECI_MAIN: "https://eci.gov.in/"
+  ECI_MAIN: "https://eci.gov.in/",
+  SIR_CHECK: "https://voters.eci.gov.in/searchInSIR/S2UA4DPDF-JK4QWODSE",
+  VOTER_LIST_DOWNLOAD: "https://voters.eci.gov.in/download-eroll",
+  ECI_ADVANCE_SEARCH: "https://www.eci.gov.in/advance-search"
 };
 
 export const APP_STRINGS = {

@@ -23,6 +23,7 @@ const IssueResolutionPage = React.lazy(() => import('./pages').then(m => ({ defa
 const LostVoterIdPage = React.lazy(() => import('./pages').then(m => ({ default: m.LostVoterIdPage })));
 const EmergencyPage = React.lazy(() => import('./pages').then(m => ({ default: m.EmergencyPage })));
 const SpecialSupportPage = React.lazy(() => import('./pages').then(m => ({ default: m.SpecialSupportPage })));
+const SIR2026Page = React.lazy(() => import('./pages').then(m => ({ default: m.SIR2026Page })));
 const FallbackHelpPage = React.lazy(() => import('./pages').then(m => ({ default: m.FallbackHelpPage })));
 
 import LoadingSkeleton from './components/Skeleton/LoadingSkeleton';
@@ -44,6 +45,7 @@ function HomePage() {
       case 'faq': navigate(ROUTES.FAQ); break;
       case 'track_status': navigate(ROUTES.STATUS); break;
       case 'report_issue': navigate(ROUTES.ISSUE_RESOLUTION); break;
+      case 'sir2026': navigate(ROUTES.SIR2026); break;
       default: console.log(`Action triggered: ${actionName}`);
     }
   };
@@ -106,6 +108,7 @@ function App() {
                 <Route path={ROUTES.LOST_VOTER_ID} element={<LostVoterIdPage />} />
                 <Route path={ROUTES.EMERGENCY} element={<EmergencyPage />} />
                 <Route path={ROUTES.SPECIAL_SUPPORT} element={<SpecialSupportPage />} />
+                <Route path={ROUTES.SIR2026} element={<SIR2026Page />} />
                 <Route path={ROUTES.HELP} element={<FallbackHelpPage />} />
                 <Route path={ROUTES.FALLBACK} element={<Navigate to={ROUTES.HOME} />} />
               </Routes>

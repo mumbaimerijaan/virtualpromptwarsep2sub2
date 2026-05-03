@@ -13,3 +13,4 @@ export { IssueResolutionPage } from './IssueResolutionPage';
 export { LostVoterIdPage } from './LostVoterIdPage';
 export { EmergencyPage } from './EmergencyPage';
 export { SpecialSupportPage } from './SpecialSupportPage';
+export { SIR2026Page } from './SIR2026Page';

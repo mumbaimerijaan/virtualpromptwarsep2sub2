@@ -141,6 +141,13 @@ export const ActionCardList = ({ onAction }) => {
         iconBgClass="bg-red-50"
         onClick={() => onAction('understand_elections')}
       />
+      <ActionItem 
+        icon={ShieldAlert} 
+        title="SIR 2026 - Verification" 
+        iconColorClass="text-purple-600"
+        iconBgClass="bg-purple-50"
+        onClick={() => onAction('sir2026')}
+      />
       
       <div className="p-3 bg-white">
         <button 

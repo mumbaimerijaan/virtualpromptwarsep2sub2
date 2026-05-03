@@ -15,5 +15,6 @@ export const ROUTES = {
   EMERGENCY: '/emergency',
   SPECIAL_SUPPORT: '/special-support',
   FAQ: '/faq',
+  SIR2026: '/sir2026',
   FALLBACK: '*'
 };

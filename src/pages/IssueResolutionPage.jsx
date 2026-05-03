@@ -14,26 +14,26 @@ import {
 import { useNavigate } from 'react-router-dom';
 import feedbackHeroImg from '../assets/feedback-hero.png';
 
-const FEEDBACK_CATEGORIES = [
-  { id: 'booth', label: 'Polling Booth', icon: MapPin, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-  { id: 'registration', label: 'Registration', icon: UserCircle, color: 'text-blue-600', bg: 'bg-blue-50' },
-  { id: 'voting', label: 'Voting Machine', icon: Fingerprint, color: 'text-purple-600', bg: 'bg-purple-50' },
-  { id: 'staff', label: 'Staff Behavior', icon: UserCircle, color: 'text-orange-600', bg: 'bg-orange-50' }
-];
-
-export const IssueResolutionPage = () => {
+export const IssueResolutionPage = ({ t }) => {
   const navigate = useNavigate();
   const [selectedCat, setSelectedCat] = useState(null);
   const [rating, setRating] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [comment, setComment] = useState('');
 
+  if (!t) return null;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitted(true);
-    // In a real app, track this event in GA4
-    // trackEvent('Feedback', 'Submit', selectedCat || 'General');
   };
+
+  const FEEDBACK_CATEGORIES = [
+    { id: 'booth', label: t.sections.categories.items[0], icon: MapPin, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { id: 'registration', label: t.sections.categories.items[1], icon: UserCircle, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { id: 'voting', label: t.sections.categories.items[2], icon: Fingerprint, color: 'text-purple-600', bg: 'bg-purple-50' },
+    { id: 'staff', label: t.sections.categories.items[3], icon: UserCircle, color: 'text-orange-600', bg: 'bg-orange-50' }
+  ];
 
   if (isSubmitted) {
     return (
@@ -41,17 +41,17 @@ export const IssueResolutionPage = () => {
         <div className="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mb-6 animate-bounce">
           <CheckCircle2 size={48} />
         </div>
-        <h1 className="text-[28px] font-extrabold text-slate-900 mb-4 tracking-tight leading-tight">
-          Thank you for <br/> helping democracy!
+        <h1 className="text-[28px] font-extrabold text-slate-900 mb-4 tracking-tight leading-tight whitespace-pre-line">
+          {t.success.title}
         </h1>
         <p className="text-[15px] text-slate-500 font-medium mb-10 leading-relaxed">
-          Your feedback has been recorded and will be used to improve the election process for everyone.
+          {t.success.subtitle}
         </p>
         <button 
           onClick={() => navigate('/')}
           className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-lg active:scale-95 transition-all"
         >
-          Back to Home
+          {t.success.button}
         </button>
       </main>
     );
@@ -70,20 +70,16 @@ export const IssueResolutionPage = () => {
             <ChevronLeft size={20} />
           </button>
           <h1 className="text-[32px] font-extrabold text-[#1A237E] leading-[1.1] tracking-tight">
-            Process Evaluation
+            {t.hero.title}
           </h1>
           <p className="text-[14px] text-slate-500 mt-3 max-w-[240px] leading-relaxed font-medium">
-            Evaluate your electoral journey and report friction points.
+            {t.hero.subtitle}
           </p>
         </div>
         
         {/* Right Illustration */}
-        <div className="absolute top-0 right-[-10px] w-[45%] h-[120%] pointer-events-none z-0">
-          <img 
-            src={feedbackHeroImg} 
-            alt="Feedback Illustration" 
-            className="w-full h-full object-contain object-right-top" 
-          />
+        <div className="absolute top-0 right-0 bottom-0 w-[45%] pointer-events-none flex items-center justify-end z-0 pr-2">
+          <img src={feedbackHeroImg} alt="Feedback Illustration" className="w-full h-auto max-h-[140px] object-contain object-right" />
         </div>
       </div>
 
@@ -91,7 +87,7 @@ export const IssueResolutionPage = () => {
         
         {/* Section 1: Categories */}
         <section>
-          <h3 className="text-[17px] font-bold text-slate-800 mb-4 tracking-tight">1. What would you like to evaluate?</h3>
+          <h3 className="text-[17px] font-bold text-slate-800 mb-4 tracking-tight">{t.sections.categories.title}</h3>
           <div className="grid grid-cols-2 gap-3">
             {FEEDBACK_CATEGORIES.map((cat) => (
               <button
@@ -116,8 +112,8 @@ export const IssueResolutionPage = () => {
 
         {/* Section 2: Rating */}
         <section className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm">
-          <h3 className="text-[17px] font-bold text-slate-800 mb-2 tracking-tight">2. Overall Experience</h3>
-          <p className="text-[12px] text-slate-400 font-bold mb-6">How smooth was your voting journey?</p>
+          <h3 className="text-[17px] font-bold text-slate-800 mb-2 tracking-tight">{t.sections.rating.title}</h3>
+          <p className="text-[12px] text-slate-400 font-bold mb-6">{t.sections.rating.subtitle}</p>
           
           <div className="flex justify-between px-2">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -134,9 +130,9 @@ export const IssueResolutionPage = () => {
 
         {/* Section 3: Detailed Feedback */}
         <section>
-          <h3 className="text-[17px] font-bold text-slate-800 mb-4 tracking-tight">3. Describe the friction (Optional)</h3>
+          <h3 className="text-[17px] font-bold text-slate-800 mb-4 tracking-tight">{t.sections.comment.title}</h3>
           <textarea
-            placeholder="Tell us about any difficulties or suggestions..."
+            placeholder={t.sections.comment.placeholder}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="w-full h-32 p-4 bg-white border border-slate-200 rounded-[24px] text-[15px] font-medium placeholder:text-slate-300 focus:outline-none focus:ring-4 focus:ring-indigo-50 shadow-sm transition-all resize-none"
@@ -147,7 +143,7 @@ export const IssueResolutionPage = () => {
         <div className="p-4 bg-orange-50 border border-orange-100 rounded-[20px] flex items-start gap-3">
           <AlertCircle size={20} className="text-orange-500 shrink-0 mt-0.5" />
           <p className="text-[12px] text-orange-800 font-bold leading-relaxed">
-            This information is for evaluation and feedback purposes only. For official complaints, please use the NGRS portal or contact 1950.
+            {t.sections.disclaimer.text}
           </p>
         </div>
 
@@ -157,7 +153,7 @@ export const IssueResolutionPage = () => {
           disabled={!rating && !comment}
           className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-[16px] shadow-lg flex items-center justify-center gap-3 disabled:bg-slate-200 disabled:text-slate-400 transition-all active:scale-[0.98] mb-10"
         >
-          Submit Evaluation <Send size={18} />
+          {t.sections.submit} <Send size={18} />
         </button>
       </div>
     </main>

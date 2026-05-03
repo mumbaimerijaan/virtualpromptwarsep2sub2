@@ -3,14 +3,14 @@ import { Home, Bell, MessageCircle, HelpCircle } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../lib/routes';
 
-export const BottomNav = ({ onOpenChat }) => {
+export const BottomNav = ({ onOpenChat, t }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const navItems = [
     {
       id: 'updates',
-      label: 'Updates',
+      label: t?.bottomNav?.updates || 'Updates',
       icon: Bell,
       path: ROUTES.UPDATES,
       isActive: location.pathname === ROUTES.UPDATES,
@@ -18,7 +18,7 @@ export const BottomNav = ({ onOpenChat }) => {
     },
     {
       id: 'faq',
-      label: 'FAQ',
+      label: t?.bottomNav?.faq || 'FAQ',
       icon: HelpCircle,
       path: ROUTES.FAQ,
       isActive: location.pathname === ROUTES.FAQ,
@@ -26,7 +26,7 @@ export const BottomNav = ({ onOpenChat }) => {
     },
     {
       id: 'help',
-      label: 'Ask AI',
+      label: t?.bottomNav?.askAi || 'Ask AI',
       icon: MessageCircle,
       isActive: false,
       onClick: onOpenChat

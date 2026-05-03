@@ -1,0 +1,166 @@
+{
+  "hero": {
+    "title": "Check Your Name\nin Voter List",
+    "subtitle": "Find your voter details in seconds.",
+    "checkNow": "Check Now",
+    "officialPortal": "Go to Official ECI Search Portal",
+    "cta": {
+      "primary": {
+        "link": "https://electoralsearch.eci.gov.in/",
+        "text": "Search on ECI Portal"
+      },
+      "secondary": {
+        "link": "https://voters.eci.gov.in/",
+        "text": "Open Voter Portal"
+      }
+    }
+  },
+  "sections": {
+    "searchOptions": {
+      "title": "1. How do you want to search?",
+      "help": "Search help",
+      "byName": {
+        "title": "By Name",
+        "fields": ["Name", "Date of Birth", "State"],
+        "button": "Search by Name"
+      },
+      "byEPIC": {
+        "title": "By EPIC (Voter ID)",
+        "description": "Enter your EPIC \nnumber",
+        "button": "Search by EPIC"
+      }
+    },
+    "quickHelp": {
+      "title": "2. Quick Help (Most Common Issues)",
+      "notInList": {
+        "title": "My name is not in the list",
+        "steps": ["Check spelling", "Use EPIC search"],
+        "button": "Register as New Voter"
+      },
+      "detailsIncorrect": {
+        "title": "My details are incorrect",
+        "description": "You can correct them",
+        "button": "Update Details (Form 8)"
+      },
+      "moreHelp": {
+        "title": "More Help",
+        "subtitle": "View all issues and solutions"
+      }
+    },
+    "booth": {
+      "title": "Find Your Polling Booth",
+      "subtitle": "Find your polling booth location and constituency details.",
+      "cta": {
+        "text": "Find My Polling Booth",
+        "link": "https://electoralsearch.eci.gov.in/"
+      }
+    },
+    "whatYouSee": {
+      "title": "4. What will you see in results?",
+      "items": [
+        { "title": "Polling Booth Location" },
+        { "title": "Assembly & Parliamentary Constituency" },
+        { "title": "Serial Number in Roll" },
+        { "title": "Your Voter Details" }
+      ],
+      "preview": "View full preview"
+    },
+    "advancedOptions": {
+      "title": "5. Advanced Options",
+      "desc": "Download voter slip, find BLO, locate polling station and more."
+    }
+  },
+  "modals": {
+    "searchHelp": {
+      "title": "Search Help",
+      "items": [
+        {
+          "title": "Try full name / partial name",
+          "desc": "Sometimes exact matches fail due to minor typos in official records."
+        },
+        {
+          "title": "Try different spellings",
+          "desc": "If your name is 'Ramesh', try 'Rames' or 'Ramsh'."
+        },
+        {
+          "title": "Use EPIC if available",
+          "desc": "Searching by Voter ID (EPIC) is the most accurate method."
+        }
+      ]
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting Guide",
+      "subtitle": "Common reasons your name might not appear:",
+      "items": [
+        {
+          "title": "Family members present but I'm not",
+          "desc": "Your application might have been rejected or you were accidentally skipped."
+        },
+        {
+          "title": "Name removed recently",
+          "desc": "Names get deleted during revision if BLO finds you absent. You need to re-register (Form 6)."
+        },
+        {
+          "title": "Application pending",
+          "desc": "If you applied recently, it might still be in process. Track your status."
+        },
+        {
+          "title": "Duplicate entries",
+          "desc": "Multiple entries might cause suspension. Contact your BLO."
+        },
+        {
+          "title": "Data mismatch",
+          "desc": "Your name spelling might be vastly different in records. Try partial search."
+        }
+      ],
+      "cta": "Chat with Assistant"
+    },
+    "resultsPreview": {
+      "title": "Search Results Preview",
+      "subtitle": "When you find your name, you will see:",
+      "items": [
+        {
+          "title": "Polling Booth Details",
+          "desc": "Exact name and address of where you go to vote."
+        },
+        {
+          "title": "Constituency Information",
+          "desc": "Your Assembly (MLA) and Parliamentary (MP) names."
+        },
+        {
+          "title": "Part & Serial Number",
+          "desc": "Your specific location number in the official voter list."
+        },
+        {
+          "title": "Personal Details",
+          "desc": "Your registered name, relative's name, age, and gender."
+        },
+        {
+          "title": "Voter Information Slip",
+          "desc": "Option to print your official voter slip directly."
+        }
+      ]
+    },
+    "advanced": {
+      "title": "Advanced Options",
+      "subtitle": "Quick links to other official ECI services:",
+      "links": [
+        {
+          "title": "Download Voter Slip",
+          "desc": "e-EPIC download portal",
+          "link": "https://voters.eci.gov.in/"
+        },
+        {
+          "title": "Know Your BLO & Officers",
+          "desc": "Find official contact details",
+          "link": "https://electoralsearch.eci.gov.in/"
+        },
+        {
+          "title": "Locate Polling Station",
+          "desc": "Map view of your booth",
+          "link": "https://electoralsearch.eci.gov.in/"
+        }
+      ]
+    }
+  }
+}

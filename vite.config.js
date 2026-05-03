@@ -11,13 +11,18 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
-      { find: /.*\.(png|jpg|jpeg|gif|svg)$/, replacement: path.resolve(__dirname, 'src/tests/mocks/fileMock.js') },
     ],
   },
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/tests/setup.js'],
+    resolve: {
+      alias: [
+        { find: '@', replacement: path.resolve(__dirname, 'src') },
+        { find: /.*\.(png|jpg|jpeg|gif|svg)$/, replacement: path.resolve(__dirname, 'src/tests/mocks/fileMock.js') },
+      ],
+    },
     include: ['src/tests/**/*.test.{js,jsx,ts,tsx}'],
     coverage: {
       provider: 'v8',

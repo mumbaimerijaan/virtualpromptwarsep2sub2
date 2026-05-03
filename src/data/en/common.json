@@ -1,0 +1,49 @@
+{
+  "header": {
+    "language": "English"
+  },
+  "hero": {
+    "tagline": "Har mat. Desh ke saath.",
+    "intent": "I want to...",
+    "subtitle": "Tell us what you need and we'll guide you step by step."
+  },
+  "actionList": {
+    "items": [
+      { "id": "register", "title": "Register as a voter" },
+      { "id": "check_name", "title": "Check my name in voter list" },
+      { "id": "update_details", "title": "Update / correct my details" },
+      { "id": "voting_process", "title": "I want to vote (voting process)" },
+      { "id": "track_status", "title": "Track my application status" },
+      { "id": "understand_elections", "title": "Understand elections" }
+    ],
+    "featured": {
+      "id": "sir2026",
+      "badge": "NEW",
+      "title": "Know more about SIR 2026",
+      "description": "Special Intensive Revision (SIR) is happening.\nCheck important details and official links."
+    },
+    "input": {
+      "title": "Type what you need",
+      "subtitle": "Describe your question or requirement"
+    }
+  },
+  "trustBadge": "Your data is private and secure with us.",
+  "updatesCard": {
+    "label": "Latest Updates",
+    "title": "General Elections 2024 – Phase 3",
+    "subtitle": "Voting on 07 May 2024",
+    "button": "View all updates"
+  },
+  "evaluationCard": {
+    "title": "Election Process Evaluation",
+    "description": "Help us improve the democratic experience by sharing feedback on your voting journey.",
+    "button": "Report Friction / Give Feedback"
+  },
+  "footer": {
+    "note": "An initiative of Election Commission of India"
+  },
+  "floatingAssistant": {
+    "title": "Need help?",
+    "subtitle": "Ask our assistant"
+  }
+}

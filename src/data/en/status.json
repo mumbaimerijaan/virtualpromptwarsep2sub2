@@ -1,0 +1,66 @@
+{
+  "hero": {
+    "title": "Track Your\nApplication Status",
+    "subtitle": "Check the progress of your voter application easily."
+  },
+  "sections": {
+    "trackingOptions": {
+      "title": "How do you want to track?",
+      "byReference": {
+        "title": "By Reference Number",
+        "subtitle": "Enter your application / reference ID",
+        "button": "Track Status"
+      },
+      "byMobile": {
+        "title": "By Mobile Number",
+        "subtitle": "Use your registered mobile number",
+        "button": "Track via Mobile"
+      },
+      "badges": ["Secure", "Official", "Easy"]
+    },
+    "tracker": {
+      "title": "Application Status Tracker",
+      "steps": [
+        { "label": "Submitted", "description": "Application received" },
+        { "label": "Under Verification", "description": "BLO is verifying your details" },
+        { "label": "Approved", "description": "Name added to voter list" },
+        { "label": "Rejected", "description": "Issue found (check reason)" }
+      ]
+    },
+    "quickHelp": {
+      "title": "Quick Help (Common Issues)",
+      "items": [
+        { "title": "I don't have my reference number", "subtitle": "Check SMS / email confirmation" },
+        { "title": "Status shows \"Pending\"", "subtitle": "Verification by BLO may be in progress" },
+        { "title": "Application rejected", "subtitle": "You can reapply or correct details" }
+      ],
+      "updateButton": "Update Details (Form 8)",
+      "viewAll": "View All Status Issues"
+    },
+    "statusMeaning": {
+      "title": "What Status Means",
+      "items": [
+        { "label": "Submitted", "description": "Application received" },
+        { "label": "Under Verification", "description": "BLO is verifying your details" },
+        { "label": "Approved", "description": "Name added to voter list" },
+        { "label": "Rejected", "description": "Issue found (check reason & reapply)" }
+      ]
+    },
+    "nextSteps": {
+      "title": "What to do next?",
+      "scenarios": [
+        { "title": "Scenario: Name not found", "description": "If your application was approved but name is not showing, wait for 48 hours for the electoral roll to update." },
+        { "title": "Scenario: Application Rejected", "description": "Check the rejection reason on the portal. You can file a new Form 6 with corrected documents immediately." },
+        { "title": "Scenario: Long Delay", "description": "If pending for >30 days, contact your ERO (Electoral Registration Officer) or call 1950." }
+      ]
+    },
+    "timeTaken": {
+      "title": "Time Taken",
+      "description": "Usually takes a few weeks\n(depending on verification)"
+    }
+  },
+  "cta": {
+    "title": "Track on Official ECI Portal",
+    "subtitle": "You will be redirected to voters.eci.gov.in"
+  }
+}

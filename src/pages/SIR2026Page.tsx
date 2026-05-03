@@ -11,9 +11,11 @@ import {
   ClipboardList,
   FileText,
   UserCheck,
-  ChevronRight
+  ChevronRight,
+  User,
+  Building2
 } from 'lucide-react';
-import sirHeroImg from '../assets/sir_2026_hero_1777822077346.png';
+import sirHeroImg from '../assets/updates-hero.png';
 import { ECI_LINKS } from '../lib/constants';
 
 export const SIR2026Page: React.FC = () => {
@@ -120,7 +122,7 @@ export const SIR2026Page: React.FC = () => {
           <div className="grid grid-cols-1 gap-4 pt-4 border-t border-slate-50">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 flex-shrink-0">
-                <Users size={20} />
+                <User size={20} />
               </div>
               <p className="text-[13px] font-bold text-slate-700">Only eligible voters are included</p>
             </div>
@@ -244,25 +246,3 @@ export const SIR2026Page: React.FC = () => {
     </main>
   );
 };
-
-const Building2 = ({ size, className }: { size: number, className?: string }) => (
-  <svg 
-    width={size} 
-    height={size} 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className={className}
-  >
-    <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
-    <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
-    <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
-    <path d="M10 6h4"/>
-    <path d="M10 10h4"/>
-    <path d="M10 14h4"/>
-    <path d="M10 18h4"/>
-  </svg>
-);

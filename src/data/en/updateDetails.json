@@ -1,0 +1,102 @@
+{
+  "hero": {
+    "title": "Update / Correct\nYour Voter Details",
+    "subtitle": "Fix mistakes or update your voter information easily.",
+    "button": "Update Details (Form 8)",
+    "officialPortalsNote": "All updates are done using Form 8 on the official ECI portal.",
+    "officialPortal": "Go to Official ECI Portal",
+    "checkStatus": "Check update status"
+  },
+  "sections": {
+    "categories": {
+      "title": "What do you want to update?",
+      "items": [
+        {
+          "title": "Address Change",
+          "desc": "Moved to a new place?\nUpdate your address in voter list."
+        },
+        {
+          "title": "Name Correction",
+          "desc": "Spelling mistake or name change (marriage, etc.)? Correct it easily."
+        },
+        {
+          "title": "Photo Update",
+          "desc": "Want to update your photo in voter records?"
+        }
+      ]
+    },
+    "whatToUpdate": {
+      "title": "What do you want to update?",
+      "items": [
+        {
+          "title": "Address Change",
+          "description": "Moved to a new place?\nUpdate your address in voter list."
+        },
+        {
+          "title": "Name Correction",
+          "description": "Spelling mistake or name change (marriage, etc.)? Correct it easily."
+        },
+        {
+          "title": "Photo Update",
+          "description": "Want to update your photo in voter records?"
+        }
+      ]
+    },
+    "importantNote": "All types of changes (address, name, photo, other details) are done using Form 8 on the official ECI portal.",
+    "quickHelp": {
+      "title": "Quick Help (Most Common Issues)",
+      "items": [
+        {
+          "title": "Made a mistake while applying?",
+          "description": "You can correct any details using Form 8."
+        },
+        {
+          "title": "Shifted to a new city?",
+          "description": "You need to update your address using Form 8."
+        },
+        {
+          "title": "Name is wrong in voter list?",
+          "description": "You can correct name spelling or other details using Form 8."
+        }
+      ],
+      "moreHelp": {
+        "title": "More issues or not sure what to do?",
+        "subtitle": "View all issues and solutions.",
+        "button": "View All Issues"
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "steps": [
+        { "title": "Fill Form 8", "description": "Provide correct details in the form." },
+        { "title": "Upload Documents", "description": "Upload required supporting documents." },
+        { "title": "Submit Request", "description": "Submit your request on the portal." },
+        { "title": "Verification by BLO", "description": "Your request will be verified by BLO." }
+      ]
+    },
+    "afterUpdate": {
+      "title": "What happens after update?",
+      "items": [
+        { "title": "Request is verified", "description": "Your application is checked and verified." },
+        { "title": "Details updated in voter list", "description": "Once approved, your details are updated." },
+        { "title": "Check updated info online", "description": "You can check your updated voter details anytime online." }
+      ]
+    },
+    "timeTaken": {
+      "label": "Time Taken:",
+      "value": "Usually processed within a few weeks (depending on verification)"
+    }
+  },
+  "modals": {
+    "troubleshooting": {
+      "title": "Troubleshooting Guide",
+      "description": "More common issues with updates:",
+      "issues": [
+        { "title": "Application rejected", "description": "Your documents might be unclear or invalid. Re-apply with proper proof." },
+        { "title": "Update taking too long", "description": "Verification might be delayed in your area. Contact your local ERO/BLO." },
+        { "title": "Wrong info updated", "description": "If mistake persists, you can file another Form 8 to correct it." }
+      ],
+      "chatWithAssistant": "Chat with Assistant"
+    }
+  }
+}

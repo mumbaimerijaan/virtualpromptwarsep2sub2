@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "title": "Updates",
+    "subtitle": "Latest Updates from Election Commission of India",
+    "searchPlaceholder": "Search updates, announcements..."
+  },
+  "categories": {
+    "all": "All",
+    "elections": "Elections",
+    "announcements": "Announcements",
+    "pressReleases": "Press Releases",
+    "policy": "Policy"
+  },
+  "labels": {
+    "elections": "ELECTIONS",
+    "announcements": "ANNOUNCEMENTS",
+    "pressRelease": "PRESS RELEASE",
+    "platform": "PLATFORM"
+  },
+  "card": {
+    "viewDetails": "View Details"
+  },
+  "emptyState": {
+    "title": "No updates found",
+    "subtitle": "Try adjusting your search or filters."
+  },
+  "footer": {
+    "note": "Information provided as per the Representation of People Act, 1950 & 1951 and guidelines issued by the Election Commission of India."
+  }
+}

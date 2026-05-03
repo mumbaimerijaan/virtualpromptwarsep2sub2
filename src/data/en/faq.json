@@ -1,0 +1,21 @@
+{
+  "title": "FAQ",
+  "subtitle": "Find answers to your election questions",
+  "searchPlaceholder": "Search questions, topics or keywords...",
+  "results": {
+    "searchResults": "Search Results",
+    "sortBy": "Sort by:",
+    "mostRelevant": "Most Relevant",
+    "newest": "Newest",
+    "noResults": "No FAQs found",
+    "noResultsDesc": "Try adjusting your search terms or browse categories."
+  },
+  "pagination": {
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "questions": "questions"
+  },
+  "footerInfo": "Information provided as per the Representation of People Act, 1950 & 1951 and guidelines issued by the Election Commission of India.",
+  "relatedTopics": "Related Topics"
+}

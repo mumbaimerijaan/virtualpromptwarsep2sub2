@@ -1,0 +1,25 @@
+{
+  "header": {
+    "title": "Saathi Assistant",
+    "subtitle": "Your smart guide for elections",
+    "badges": "Trusted • Secure • Always Here",
+    "back": "Back"
+  },
+  "initial": {
+    "welcome": "Hi there! 👋\n\nI'm Saathi, your election assistant. How can I help you today?",
+    "inputPlaceholder": "Type your question here..."
+  },
+  "messages": {
+    "intentMatch": "I can help you with that! You can access the {title} page directly here.",
+    "error": "Sorry, I'm having trouble connecting right now.",
+    "defaultSuggestions": ["Register as a voter", "Check voter list", "How to vote"]
+  },
+  "footer": {
+    "note": "An initiative of Election Commission of India"
+  },
+  "aria": {
+    "loading": "Bot is auditing the prompt...",
+    "syncing": "Synchronizing chat history...",
+    "ready": "Insights ready"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "hero": {
+    "title": "How to Vote",
+    "subtitle": "Everything you need to know for voting day.",
+    "checkName": { "title": "Check My Name", "subtitle": "Check your name in voter list" },
+    "findBooth": { "title": "Find Polling Booth", "subtitle": "Know your polling booth location" }
+  },
+  "sections": {
+    "step1": {
+      "title": "Before You Go",
+      "items": ["Check your name in voter list", "Know your polling booth location", "Carry a valid ID"],
+      "badge": "Be prepared, save time!"
+    },
+    "step2": {
+      "title": "At the Polling Booth",
+      "steps": [
+        "Show your ID",
+        "Your finger will be marked with ink",
+        "Go to voting machine (EVM)",
+        "Press button for your candidate"
+      ]
+    },
+    "step3": {
+      "title": "After Voting",
+      "items": [
+        { "title": "Check VVPAT slip", "subtitle": "(confirmation window)" },
+        "Exit polling station"
+      ],
+      "badge": "Your vote is secret and secure"
+    },
+    "idProof": {
+      "title": "What ID Can You Carry?",
+      "description": "You can carry any ONE of these:",
+      "items": [
+        { "label": "Voter ID (EPIC)" },
+        { "label": "Aadhaar" },
+        { "label": "Passport" },
+        { "label": "Driving License" },
+        { "label": "PAN Card" }
+      ],
+      "note": "You can vote even without voter ID card if your name is in voter list."
+    },
+    "rules": {
+      "title": "Important Rules",
+      "items": [
+        "No mobile phones inside booth",
+        "No photography or recording",
+        "Follow polling staff instructions"
+      ]
+    },
+    "quickHelp": {
+      "title": "Quick Help (Voting Day Issues)",
+      "items": [
+        { "title": "My name not found at booth?", "description": "Re-check voter list and details." },
+        { "title": "I forgot my voter ID?", "description": "Use any other valid ID from the list." },
+        { "title": "Long queue?", "description": "You can still vote if in line before closing." },
+        { "title": "More issues?", "button": "View All Issues" }
+      ]
+    },
+    "success": {
+      "title": "You successfully cast your vote.",
+      "description": "Your vote is counted securely. You participated in democracy."
+    },
+    "trustNote": {
+      "right": "Voting is your right.",
+      "confidential": "Every vote is confidential and secure."
+    }
+  }
+}

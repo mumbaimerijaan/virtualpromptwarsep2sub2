@@ -18,6 +18,7 @@ export interface ChatRequest {
   history?: ChatMessage[];
   recaptchaToken: string;
   recaptchaAction: string;
+  currentLanguage?: string;
 }
 
 export interface ChatResponse {

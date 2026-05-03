@@ -1,0 +1,50 @@
+{
+  "hero": {
+    "title": "Special Intensive Revision (SIR) 2026",
+    "subtitle": "Update or verify your voter details to avoid issues during elections."
+  },
+  "quickAccess": {
+    "title": "Quick Access",
+    "downloadVoterList": "Download Voter List",
+    "checkDetails": "Check Your Details (SIR)",
+    "officialPortal": "Official Portal",
+    "goLink": "Go to link"
+  },
+  "whatIsSIR": {
+    "title": "What is SIR?",
+    "description": "SIR (Special Intensive Revision) is a process by the Election Commission to verify and update the voter list.",
+    "items": [
+      "Only eligible voters are included",
+      "Incorrect or duplicate entries are removed",
+      "Your details are kept up to date"
+    ]
+  },
+  "whyItMatters": {
+    "title": "Why this matters",
+    "description": "If your details are not correct or updated, your name may be missing from the voter list and you may face issues while voting."
+  },
+  "whoShouldTakeAction": {
+    "title": "Who should take action?",
+    "items": [
+      "You recently moved to a new address",
+      "You did not vote in previous elections",
+      "You changed your name or details",
+      "You received any notice from officials"
+    ]
+  },
+  "whatToDo": {
+    "title": "What should you do?",
+    "steps": [
+      { "title": "Check your name in the voter list" },
+      { "title": "Verify your details" },
+      { "title": "If incorrect, follow official instructions to update" }
+    ]
+  },
+  "importantTip": {
+    "title": "Important Tip",
+    "description": "Always use official ECI links. Avoid sharing personal details on unknown websites or with unauthorised persons."
+  },
+  "footer": {
+    "note": "Information simplified from official Election Commission sources"
+  }
+}

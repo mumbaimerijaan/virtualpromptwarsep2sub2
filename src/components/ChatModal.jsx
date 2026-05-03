@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { X, Send, UserPlus, Search, Edit3, CheckSquare, BookOpen, CheckCircle2, ShieldCheck, ChevronRight, ArrowLeft, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import botImg from '../assets/bot.png';
@@ -10,17 +10,15 @@ import { initFirebase } from '../lib/firebase';
 import { sanitizeHTML } from '../utils/sanitize';
 import { findFAQMatch, findRouteMatch } from '../utils/intentMatcher';
 
-const INITIAL_MESSAGES = [
-  {
-    id: 1,
-    type: 'bot',
-    isWelcome: true,
-    content: "Hi there! 👋\n\nI'm Saathi, your election assistant. How can I help you today?",
-  }
-];
-
-export const ChatModal = ({ isOpen, onClose }) => {
-  const [messages, setMessages] = useState(INITIAL_MESSAGES);
+export const ChatModal = ({ isOpen, onClose, t, lang, faqData }) => {
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      type: 'bot',
+      isWelcome: true,
+      content: t?.initial?.welcome || "Hi there! 👋\n\nI'm Saathi, your election assistant. How can I help you today?",
+    }
+  ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -32,6 +30,22 @@ export const ChatModal = ({ isOpen, onClose }) => {
   const inputRef = useRef(null);
   const lastFocusedElement = useRef(null);
   const navigate = useNavigate();
+
+  const INITIAL_MESSAGES = useMemo(() => ([
+    {
+      id: 1,
+      type: 'bot',
+      isWelcome: true,
+      content: t?.initial?.welcome || "Hi there! 👋\n\nI'm Saathi, your election assistant. How can I help you today?",
+    }
+  ]), [t]);
+
+  // Sync initial message when t changes (language swap)
+  useEffect(() => {
+    if (!hasInteracted) {
+      setMessages(INITIAL_MESSAGES);
+    }
+  }, [INITIAL_MESSAGES, hasInteracted]);
 
   // Initialize Session ID
   useEffect(() => {
@@ -55,7 +69,7 @@ export const ChatModal = ({ isOpen, onClose }) => {
       });
       return () => unsubscribe();
     }
-  }, [isOpen, sessionId, hasInteracted]);
+  }, [isOpen, sessionId, hasInteracted, INITIAL_MESSAGES]);
 
   // Accessibility: Focus Management & Keyboard Trap
   useEffect(() => {
@@ -155,7 +169,7 @@ export const ChatModal = ({ isOpen, onClose }) => {
       if (pageMatch) {
         await ChatService.saveMessage(sessionId, {
           type: 'bot',
-          content: `I can help you with that! You can access the ${pageMatch.title} page directly here.`,
+          content: t?.messages?.intentMatch?.replace('{title}', pageMatch.title) || `I can help you with that! You can access the ${pageMatch.title} page directly here.`,
           intent: pageMatch.route,
           suggestions: ["Go to Page", "Something else?"]
         });
@@ -163,7 +177,7 @@ export const ChatModal = ({ isOpen, onClose }) => {
         return;
       }
 
-      const faqMatch = findFAQMatch(userMessage);
+      const faqMatch = findFAQMatch(userMessage, faqData);
       if (faqMatch) {
         await ChatService.saveMessage(sessionId, {
           type: 'bot',
@@ -180,7 +194,7 @@ export const ChatModal = ({ isOpen, onClose }) => {
 
       try {
           if (window.grecaptcha && window.grecaptcha.enterprise) {
-              recaptchaToken = await window.grecaptcha.enterprise.execute('6Le01M4sAAAAAIoL-WINAR75BfYP2UJqYKeB9G66', { action: recaptchaAction });
+              recaptchaToken = await window.grecaptcha.enterprise.execute(import.meta.env.VITE_RECAPTCHA_SITE_KEY, { action: recaptchaAction });
           }
       } catch (err) {
           console.error("reCAPTCHA execution failed:", err);
@@ -195,7 +209,8 @@ export const ChatModal = ({ isOpen, onClose }) => {
           timestamp: Date.now()
         })),
         recaptchaToken,
-        recaptchaAction
+        recaptchaAction,
+        currentLanguage: lang
       });
       
       await ChatService.saveMessage(sessionId, {
@@ -209,9 +224,9 @@ export const ChatModal = ({ isOpen, onClose }) => {
       console.error("Chat flow error:", error);
       await ChatService.saveMessage(sessionId, {
         type: 'bot',
-        content: "Sorry, I'm having trouble connecting right now.",
+        content: t?.messages?.error || "Sorry, I'm having trouble connecting right now.",
         intent: "ERROR",
-        suggestions: ["Register as a voter", "Check voter list", "How to vote"]
+        suggestions: t?.messages?.defaultSuggestions || ["Register as a voter", "Check voter list", "How to vote"]
       });
     } finally {
       setIsLoading(false);
@@ -225,9 +240,9 @@ export const ChatModal = ({ isOpen, onClose }) => {
   };
 
   const getAriaStatus = () => {
-    if (isLoading) return "Bot is auditing the prompt...";
-    if (isSyncing) return "Synchronizing chat history...";
-    if (messages.length > 1 && !isLoading) return "Insights ready";
+    if (isLoading) return t?.aria?.loading || "Bot is auditing the prompt...";
+    if (isSyncing) return t?.aria?.syncing || "Synchronizing chat history...";
+    if (messages.length > 1 && !isLoading) return t?.aria?.ready || "Insights ready";
     return "";
   };
 
@@ -254,12 +269,12 @@ export const ChatModal = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h2 id="modal-title" className="font-bold text-slate-800 text-[17px] leading-tight flex items-center gap-1.5">
-                Saathi Assistant 
+                {t?.header?.title || "Saathi Assistant"} 
                 <CheckCircle2 size={14} className="text-blue-500" />
               </h2>
-              <p className="text-slate-500 text-[12px] mt-0.5">Your smart guide for elections</p>
+              <p className="text-slate-500 text-[12px] mt-0.5">{t?.header?.subtitle || "Your smart guide for elections"}</p>
               <div className="flex items-center gap-1.5 text-[10px] text-emerald-600 font-medium mt-1">
-                <ShieldCheck size={12} /> Trusted • Secure • Always Here
+                <ShieldCheck size={12} /> {t?.header?.badges || "Trusted • Secure • Always Here"}
               </div>
             </div>
           </div>
@@ -272,10 +287,10 @@ export const ChatModal = ({ isOpen, onClose }) => {
                   setHasInteracted(false);
                 }}
                 className="p-2 bg-slate-50 text-slate-500 rounded-full hover:bg-slate-100 hover:text-slate-700 transition-colors border border-slate-100 flex items-center gap-1 px-3"
-                aria-label="Back to topics"
+                aria-label={t?.header?.back || "Back to topics"}
               >
                 <ArrowLeft size={16} strokeWidth={2.5} />
-                <span className="text-[12px] font-bold">Back</span>
+                <span className="text-[12px] font-bold">{t?.header?.back || "Back"}</span>
               </button>
             )}
             <button 
@@ -300,7 +315,7 @@ export const ChatModal = ({ isOpen, onClose }) => {
                  <img src={botBgImg} alt="" className="absolute inset-0 w-full h-full object-cover pointer-events-none block" />
                  
                  <div className="absolute top-0 left-0 w-[55%] h-[55%] z-10 p-5 flex flex-col justify-center">
-                    <p className="text-[14.5px] text-slate-700 leading-snug whitespace-pre-wrap font-medium">{INITIAL_MESSAGES[0].content}</p>
+                    <p className="text-[14.5px] text-slate-700 leading-snug whitespace-pre-wrap font-medium">{messages[0].content}</p>
                  </div>
                  
                  <div className="absolute bottom-0 left-0 w-full h-[45%] z-10 p-4 flex flex-col justify-end">
@@ -311,7 +326,7 @@ export const ChatModal = ({ isOpen, onClose }) => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyPress}
-                        placeholder="Type your question here..."
+                        placeholder={t?.initial?.inputPlaceholder || "Type your question here..."}
                         className="w-full bg-transparent border-none py-3.5 pl-5 pr-14 text-[14px] text-slate-800 placeholder:text-slate-400 focus:outline-none rounded-full"
                         disabled={isLoading}
                       />

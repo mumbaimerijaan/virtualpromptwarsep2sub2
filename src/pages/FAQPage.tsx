@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useLayoutEffect } from 'react';
 import { 
   Search, 
   ChevronDown, 
@@ -14,12 +14,12 @@ import {
 } from 'lucide-react';
 import { useDebounce } from '../hooks/useDebounce';
 import { memo } from 'react';
-import faqData from '../data/faqs_full.json';
+// import faqData from '../data/faqs_full.json'; // Removed static import
 import faqHeroImg from '../assets/faq-hero.png';
 import { FAQ, FAQData } from '../utils/intentMatcher';
 import { FAQItemProps, TabIcons } from '../types/components';
 
-const FAQItem: React.FC<FAQItemProps> = memo(({ faq, index, isOpen, onToggle }) => {
+const FAQItem: React.FC<FAQItemProps & { t: any }> = memo(({ faq, index, isOpen, onToggle, t }) => {
   return (
     <div className={`border-b border-slate-100 last:border-0 overflow-hidden transition-all duration-300 ${isOpen ? 'bg-indigo-50/30' : ''}`}>
       <button 
@@ -54,7 +54,7 @@ const FAQItem: React.FC<FAQItemProps> = memo(({ faq, index, isOpen, onToggle }) 
           
           {faq.keywords && faq.keywords.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-2">
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-full mb-1">Related Topics</span>
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider w-full mb-1">{t.relatedTopics}</span>
               {faq.keywords.slice(0, 5).map((keyword, i) => (
                 <span key={i} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-[11px] font-bold text-slate-500 shadow-sm">
                   {keyword}
@@ -68,15 +68,17 @@ const FAQItem: React.FC<FAQItemProps> = memo(({ faq, index, isOpen, onToggle }) 
   );
 });
 
-export const FAQPage: React.FC = () => {
+export const FAQPage: React.FC<{ t: any; faqData: any }> = ({ t, faqData }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const debouncedSearch = useDebounce(searchQuery, 300);
-  const [activeTab, setActiveTab] = useState((faqData as any).tabs[0].title);
+  const [activeTab, setActiveTab] = useState(() => (faqData as any)?.tabs?.[0]?.title || '');
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // Icons mapping
+  if (!t) return null;
+
+  // Icons mapping - use English keys for internal logic, localized labels for display
   const tabIcons: TabIcons = {
     'Resident Electors': Users,
     'Electronic Voting Machine': Printer,
@@ -86,10 +88,18 @@ export const FAQPage: React.FC = () => {
     'Parliament': Building2
   };
 
+  const TABS_METADATA = useMemo(() => {
+    if (!faqData || !faqData.tabs) return [];
+    return (faqData as any).tabs.map((tab: any, idx: number) => ({
+      id: tab?.title, // Keep English ID
+      label: (t?.tabs && t.tabs[idx]) || tab?.title // Use localized label
+    }));
+  }, [faqData, t]);
+
   const filteredFaqs = useMemo(() => {
     if (!debouncedSearch.trim()) {
-      const currentTab = (faqData as any).tabs.find((t: any) => t.title === activeTab);
-      return currentTab ? currentTab.faqs : [];
+      const currentTab = (faqData as any)?.tabs?.find((t: any) => t.title === activeTab);
+      return currentTab?.faqs || [];
     }
 
     const query = debouncedSearch.toLowerCase();
@@ -103,7 +113,7 @@ export const FAQPage: React.FC = () => {
       faq.search_text?.toLowerCase().includes(query) ||
       faq.keywords?.some(k => k.toLowerCase().includes(query))
     );
-  }, [debouncedSearch, activeTab]);
+  }, [debouncedSearch, activeTab, faqData]);
 
   const totalPages = Math.ceil(filteredFaqs.length / itemsPerPage);
   const paginatedFaqs = filteredFaqs.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -111,7 +121,17 @@ export const FAQPage: React.FC = () => {
   useEffect(() => {
     setCurrentPage(1);
     setExpandedId(null);
-  }, [searchQuery, activeTab]);
+  }, [searchQuery, activeTab, faqData]);
+
+  // Handle language change: reset activeTab to first tab of new data
+  // Using useLayoutEffect to ensure state is updated before next render
+  useLayoutEffect(() => {
+    if (faqData?.tabs?.[0]?.title) {
+      setActiveTab(faqData.tabs[0].title);
+    }
+  }, [faqData]);
+
+  const activeTabLabel = TABS_METADATA.find(tm => tm.id === activeTab)?.label || activeTab;
 
   return (
     <main id="main-content" className="flex-1 flex flex-col bg-[#F9FAFB] pb-32 relative overflow-x-hidden">
@@ -120,33 +140,29 @@ export const FAQPage: React.FC = () => {
       <div className="px-5 pt-8 pb-12 relative overflow-hidden bg-white">
         <div className="w-[60%] relative z-10 min-h-[140px] flex flex-col justify-center">
           <h1 className="text-[32px] font-extrabold text-[#1A237E] leading-[1.1] tracking-tight">
-            FAQ
+            {t.hero?.title}
           </h1>
           <p className="text-[14px] text-slate-500 mt-3 max-w-[220px] leading-relaxed font-medium">
-            Find answers to your election questions
+            {t.hero?.subtitle}
           </p>
         </div>
         
         {/* Right Illustration */}
-        <div className="absolute top-[-10px] right-[-20px] w-[55%] h-[100%] pointer-events-none z-0">
-          <img 
-            src={faqHeroImg} 
-            alt="FAQ Illustration" 
-            className="w-full h-full object-contain object-right-top" 
-          />
+        <div className="absolute top-0 right-0 bottom-0 w-[45%] pointer-events-none flex items-center justify-end z-0 pr-2">
+          <img src={faqHeroImg} alt="FAQ Illustration" className="w-full h-auto max-h-[140px] object-contain object-right" />
         </div>
 
         {/* Search Bar */}
         <div className="mt-10 relative z-10 w-[70%]">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+          <div className="relative w-full max-w-xl">
             <input 
               type="text" 
-              placeholder="Search questions, topics or keywords..."
+              placeholder={t.hero?.searchPlaceholder || "Search..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 bg-white border border-slate-200 rounded-[20px] text-[15px] font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+              className="w-full h-14 pl-14 pr-4 bg-white rounded-2xl border-none shadow-[0_8px_30px_rgb(0,0,0,0.06)] outline-none text-[15px] font-medium text-slate-800 placeholder:text-slate-400 placeholder:font-normal focus:ring-2 focus:ring-indigo-500/20 transition-all"
             />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-indigo-400" size={20} />
           </div>
         </div>
       </div>
@@ -156,9 +172,11 @@ export const FAQPage: React.FC = () => {
         {/* Tabs - Only show if not searching */}
         {!searchQuery && (
           <div className="flex overflow-x-auto gap-4 pb-2 -mx-5 px-5 scrollbar-hide no-scrollbar">
-            {(faqData as any).tabs.map((tab: any) => {
+            {(faqData as any).tabs.map((tab: any, idx: number) => {
               const Icon = tabIcons[tab.title] || HelpCircle;
               const isActive = activeTab === tab.title;
+              const localizedLabel = (t?.tabs && t.tabs[idx]) || tab.title;
+              
               return (
                 <button
                   key={tab.title}
@@ -172,7 +190,7 @@ export const FAQPage: React.FC = () => {
                   </div>
                   <div className="flex flex-col items-center gap-1">
                     <span className={`text-[11px] font-bold text-center leading-tight whitespace-nowrap ${isActive ? 'text-indigo-600' : 'text-slate-500'}`}>
-                      {tab.title.length > 15 ? tab.title.split(' ')[0] + '...' : tab.title}
+                      {localizedLabel.length > 15 ? localizedLabel.split(' ')[0] + '...' : localizedLabel}
                     </span>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive ? 'bg-indigo-50 text-indigo-600' : 'bg-slate-100 text-slate-400'}`}>
                       {tab.faqs.length}
@@ -187,13 +205,13 @@ export const FAQPage: React.FC = () => {
         {/* Results Header */}
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[17px] text-slate-800 tracking-tight">
-            {searchQuery ? `Search Results (${filteredFaqs.length})` : `${activeTab} (${filteredFaqs.length})`}
+            {searchQuery ? `${t.labels?.searchResults} (${filteredFaqs.length})` : `${activeTabLabel} (${filteredFaqs.length})`}
           </h2>
           <div className="flex items-center gap-2">
-            <span className="text-[12px] font-bold text-slate-400">Sort by:</span>
+            <span className="text-[12px] font-bold text-slate-400">{t.labels?.sortBy}</span>
             <select className="bg-transparent text-[12px] font-bold text-slate-800 outline-none">
-              <option>Most Relevant</option>
-              <option>Newest</option>
+              <option>{t.labels?.sortOptions?.relevant}</option>
+              <option>{t.labels?.sortOptions?.newest}</option>
             </select>
           </div>
         </div>
@@ -208,6 +226,7 @@ export const FAQPage: React.FC = () => {
                 index={(currentPage - 1) * itemsPerPage + index}
                 isOpen={expandedId === String(faq.id)}
                 onToggle={() => setExpandedId(expandedId === String(faq.id) ? null : String(faq.id))}
+                t={t}
               />
             ))
           ) : (
@@ -215,8 +234,8 @@ export const FAQPage: React.FC = () => {
               <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 mx-auto mb-4">
                 <Search size={32} />
               </div>
-              <h3 className="font-bold text-slate-800 text-[16px]">No FAQs found</h3>
-              <p className="text-[14px] text-slate-500 mt-2">Try adjusting your search terms or browse categories.</p>
+              <h3 className="font-bold text-slate-800 text-[16px]">{t.noFaqs?.title || t.emptyState?.title}</h3>
+              <p className="text-[14px] text-slate-500 mt-2">{t.noFaqs?.subtitle || t.emptyState?.subtitle}</p>
             </div>
           )}
         </div>
@@ -225,7 +244,13 @@ export const FAQPage: React.FC = () => {
         {totalPages > 1 && (
           <div className="flex items-center justify-between mt-2">
             <p className="text-[12px] font-medium text-slate-400">
-              Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredFaqs.length)} of {filteredFaqs.length} questions
+              {t.labels?.paginationInfo 
+                ? t.labels.paginationInfo
+                    .replace('{start}', ((currentPage - 1) * itemsPerPage + 1).toString())
+                    .replace('{end}', Math.min(currentPage * itemsPerPage, filteredFaqs.length).toString())
+                    .replace('{total}', filteredFaqs.length.toString())
+                : `Showing ${(currentPage - 1) * itemsPerPage + 1} to ${Math.min(currentPage * itemsPerPage, filteredFaqs.length)} of ${filteredFaqs.length} questions`
+              }
             </p>
             <div className="flex items-center gap-2">
               <button 
@@ -270,7 +295,7 @@ export const FAQPage: React.FC = () => {
           </div>
           <div className="relative z-10">
             <p className="text-[13px] font-medium text-indigo-900 leading-relaxed">
-              Information provided as per the Representation of People Act, 1950 & 1951 and guidelines issued by the Election Commission of India.
+              {t.footer?.note}
             </p>
           </div>
           <div className="absolute right-[-20px] bottom-[-20px] opacity-10 pointer-events-none">

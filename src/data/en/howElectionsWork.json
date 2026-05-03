@@ -1,0 +1,88 @@
+{
+  "title": "Understand Elections",
+  "hero": {
+    "title": "Understand \nElections",
+    "subtitle": "Learn how elections work in India—simple and clear.",
+    "badge": "ECI Conducted Process"
+  },
+  "sections": {
+    "types": {
+      "title": "Types of Elections",
+      "items": [
+        {
+          "title": "General Elections (Lok Sabha)",
+          "points": [
+            "Choose Members of Parliament (MPs)",
+            "Decide the central government"
+          ]
+        },
+        {
+          "title": "State Elections (Vidhan Sabha)",
+          "points": [
+            "Choose Members of Legislative Assembly (MLAs)",
+            "Decide state government"
+          ]
+        },
+        {
+          "title": "Local Elections",
+          "points": [
+            "Municipal Corporation / Panchayat",
+            "Local governance"
+          ]
+        }
+      ]
+    },
+    "process": {
+      "title": "How the Election Process Works",
+      "steps": [
+        "Election dates announced",
+        "Candidates file nominations",
+        "Campaigning happens",
+        "Voting day",
+        "Counting of votes",
+        "Results declared"
+      ]
+    },
+    "howVotingWorks": {
+      "title": "How Voting Works",
+      "points": [
+        "You vote using an Electronic Voting Machine (EVM)",
+        "Your vote is recorded securely",
+        "VVPAT shows confirmation"
+      ]
+    },
+    "isVotingSafe": {
+      "title": "Is Voting Safe?",
+      "points": [
+        "Secret ballot system",
+        "No one knows who you voted for",
+        "Secure machines and process"
+      ]
+    },
+    "faqs": {
+      "title": "Common Questions",
+      "items": [
+        {
+          "question": "Can I vote from anywhere?",
+          "answer": "No, you must vote at your assigned polling booth. You can find your booth location using the 'Find Polling Booth' feature on the ECI website."
+        },
+        {
+          "question": "Can I vote without voter ID?",
+          "answer": "Yes, if your name is in the voter list, you can vote using any other valid ID like Aadhaar, PAN card, Passport, or Driving License."
+        },
+        {
+          "question": "What if I don’t vote?",
+          "answer": "You lose your chance to participate in democracy and have a say in who leads your government. Every vote matters for the future of your country."
+        }
+      ]
+    },
+    "takeaway": {
+      "title": "Final Takeaway",
+      "points": [
+        "Elections are how people choose their leaders",
+        "Your vote directly impacts governance",
+        "Every vote matters"
+      ]
+    }
+  }
+}

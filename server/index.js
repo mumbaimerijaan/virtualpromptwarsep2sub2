@@ -168,6 +168,10 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
       });
     }
 
+    const currentLanguage = req.body.currentLanguage || 'en';
+    const langNames = { en: 'English', hi: 'Hindi', mr: 'Marathi' };
+    const currentLangName = langNames[currentLanguage] || 'English';
+
     // Initialize Gemini lazily
     if (!ai) {
       ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY });
@@ -190,11 +194,13 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
         1. If the user asks a factual question about Indian elections that you know is TRUE (e.g., 'Minimum age to vote?', 'What is EPIC?'), return a short ONE-LINE answer in the 'message' field and set intent to 'FACT_REPLY'.
         2. If the user query is a follow-up or requires context from the history, use the provided conversation history to maintain continuity.
         3. For any other queries where you cannot provide a direct factual answer or guidance, set intent to 'UNKNOWN' and respond EXACTLY with the message: 'I can help with voter services and election guidance.'
+        4. MANDATORY: You MUST respond in ${currentLangName}. Even if the user asks in English, your response MUST be in ${currentLangName}.
+        5. ACRONYMS: Do NOT translate election acronyms like EPIC, SIR, PAN, BLO, ECI, EVM, VVPAT, Aadhaar. Keep them as they are in the ${currentLangName} response.
         
         You MUST respond with valid JSON containing:
         - intent: FACT_REPLY or UNKNOWN
-        - message: The one-line answer or the mandatory fallback string
-        - suggestions: Array of 2-3 related topics`,
+        - message: The one-line answer or the mandatory fallback string in ${currentLangName}
+        - suggestions: Array of 2-3 related topics in ${currentLangName}`,
         responseMimeType: "application/json",
       }
     });

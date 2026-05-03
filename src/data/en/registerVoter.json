@@ -1,0 +1,99 @@
+{
+  "title": "Register as a New Voter",
+  "hero": {
+    "title": "Become a voter.\nMake your voice count.",
+    "subtitle": "We'll guide you step by step to register as a new voter.",
+    "button": "New Voter form guidelines"
+  },
+  "sections": {
+    "eligibility": {
+      "title": "1. Are you eligible?",
+      "notSure": "Not sure?",
+      "description": "You can register if:",
+      "points": [
+        "You are 18 years or older (or turning 18 soon)",
+        "You are a citizen of India",
+        "You live in the constituency where you are applying"
+      ]
+    },
+    "documents": {
+      "title": "2. Documents you need",
+      "needHelp": "Need help?",
+      "items": {
+        "identity": {
+          "title": "Identity Proof",
+          "description": "Aadhaar / PAN / Passport / Driving License",
+          "requirement": "Any one"
+        },
+        "address": {
+          "title": "Address Proof",
+          "description": "Aadhaar / Rent Agreement / Electricity Bill",
+          "requirement": "Any one"
+        },
+        "age": {
+          "title": "Age Proof",
+          "description": "Birth Certificate / 10th Marksheet / Passport",
+          "requirement": "Any one"
+        }
+      },
+      "note": "Aadhaar is optional (not mandatory)"
+    },
+    "howToApply": {
+      "title": "3. How to Apply",
+      "offlineProcess": "Offline process",
+      "steps": [
+        { "title": "Fill Form 6", "description": "Online or Offline" },
+        { "title": "Upload documents", "description": "Self attested copies" },
+        { "title": "Submit application", "description": "Get reference number" },
+        { "title": "BLO Verification", "description": "Verification at your address" }
+      ]
+    },
+    "whatsNext": {
+      "title": "Whats Next?",
+      "items": [
+        "Application is verified",
+        "Name added to voter list",
+        "EPIC number generated",
+        "Voter ID card will be delivered"
+      ],
+      "note": "You can vote even if you haven't received your Voter ID card, if your name is in the voter list.",
+      "appliedHeader": "Already applied?",
+      "appliedButton": "Track Application Status"
+    },
+    "facingIssue": {
+      "title": "Facing an issue?",
+      "options": [
+        "Track Application Status",
+        "Made a mistake?",
+        "Update/Correct details",
+        "More Help Options"
+      ]
+    }
+  },
+  "modals": {
+    "notSure": {
+      "title": "Not Sure?",
+      "items": [
+        { "title": "Just turned 18?", "action": "You can apply now" },
+        { "title": "Living away from hometown?", "action": "Apply where you currently stay" },
+        { "title": "Already registered elsewhere?", "action": "Use Update Details (Form 8)" }
+      ]
+    },
+    "commonProblems": {
+      "title": "Common Problems",
+      "items": [
+        { "issue": "I don’t have all documents", "solution": "You can apply with available valid documents" },
+        { "issue": "Details don’t match documents", "solution": "Correct details first or update later" },
+        { "issue": "I don’t know my constituency", "solution": "Use voter search" }
+      ]
+    },
+    "offlineProcess": {
+      "title": "Offline process",
+      "description": "You can submit your offline application (Form 6) by visiting:",
+      "locations": [
+        "Electoral Registration Officer (ERO)",
+        "Booth Level Officer (BLO)"
+      ]
+    }
+  }
+}

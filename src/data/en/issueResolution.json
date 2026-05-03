@@ -1,0 +1,34 @@
+{
+  "hero": {
+    "title": "Process Evaluation",
+    "subtitle": "Evaluate your electoral journey and report friction points."
+  },
+  "sections": {
+    "categories": {
+      "title": "1. What would you like to evaluate?",
+      "items": [
+        "Polling Booth",
+        "Registration",
+        "Voting Machine",
+        "Staff Behavior"
+      ]
+    },
+    "rating": {
+      "title": "2. Overall Experience",
+      "subtitle": "How smooth was your voting journey?"
+    },
+    "comment": {
+      "title": "3. Describe the friction (Optional)",
+      "placeholder": "Tell us about any difficulties or suggestions..."
+    },
+    "disclaimer": {
+      "text": "This information is for evaluation and feedback purposes only. For official complaints, please use the NGRS portal or contact 1950."
+    },
+    "submit": "Submit Evaluation"
+  },
+  "success": {
+    "title": "Thank you for\nhelping democracy!",
+    "subtitle": "Your feedback has been recorded and will be used to improve the election process for everyone.",
+    "button": "Back to Home"
+  }
+}

@@ -1,4 +1,4 @@
-import faqData from '../data/faqs_full.json';
+// import faqData from '../data/faqs_full.json'; // Removed static import
 import { ROUTES } from '../lib/routes';
 
 export interface FAQ {
@@ -28,9 +28,10 @@ export interface RouteMatch {
 /**
  * Finds a matching FAQ based on user input.
  * @param query The user input query.
+ * @param faqData The localized FAQ dataset.
  * @returns The best matching FAQ or null.
  */
-export const findFAQMatch = (query: string): FAQ | null => {
+export const findFAQMatch = (query: string, faqData: FAQData): FAQ | null => {
   if (!query) return null;
   const q = query.toLowerCase().replace(/[^\w\s]/g, '').trim();
   if (!q) return null;

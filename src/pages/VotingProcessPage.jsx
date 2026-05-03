@@ -27,9 +27,11 @@ import step1Img from '../assets/step1-img.png';
 import step2Img from '../assets/step2-img.png';
 import step3Img from '../assets/step3-img.png';
 
-export const VotingProcessPage = () => {
+export const VotingProcessPage = ({ t }) => {
   const navigate = useNavigate();
   const [modalState, setModalState] = useState(null); // 'emergency-help' | null
+
+  if (!t) return null;
 
   return (
     <main id="main-content" className="flex-1 flex flex-col bg-[#F9FAFB] pb-24 relative overflow-x-hidden">
@@ -37,11 +39,11 @@ export const VotingProcessPage = () => {
       {/* Hero Section */}
       <div className="pt-6 pb-10 relative">
         <div className="w-[55%] relative z-10">
-          <h2 className="text-[36px] font-extrabold text-[#111827] leading-[1.1] tracking-tight">
-            How to <span className="text-[#1A237E]">Vote</span>
+          <h2 className="text-[36px] font-extrabold text-[#111827] leading-[1.1] tracking-tight whitespace-pre-line">
+            {t.hero.title}
           </h2>
           <p className="text-[15px] text-slate-500 mt-4 max-w-[240px] leading-relaxed font-medium">
-            Everything you need to know for voting day.
+            {t.hero.subtitle}
           </p>
           
           <div className="mt-8 flex flex-col gap-3 max-w-[340px]">
@@ -56,8 +58,8 @@ export const VotingProcessPage = () => {
                   <User size={18} />
                 </div>
                 <div className="text-left">
-                  <p className="text-[13px] font-bold text-slate-800">Check My Name</p>
-                  <p className="text-[11px] text-slate-400 font-bold">Check your name in voter list</p>
+                  <p className="text-[13px] font-bold text-slate-800">{t.hero.checkName.title}</p>
+                  <p className="text-[11px] text-slate-400 font-bold">{t.hero.checkName.subtitle}</p>
                 </div>
               </div>
               <ChevronRight size={16} className="text-slate-300 group-hover:translate-x-1 transition-transform" />
@@ -74,8 +76,8 @@ export const VotingProcessPage = () => {
                   <MapPin size={18} />
                 </div>
                 <div className="text-left">
-                  <p className="text-[13px] font-bold text-slate-800">Find Polling Booth</p>
-                  <p className="text-[11px] text-slate-400 font-bold">Know your polling booth location</p>
+                  <p className="text-[13px] font-bold text-slate-800">{t.hero.findBooth.title}</p>
+                  <p className="text-[11px] text-slate-400 font-bold">{t.hero.findBooth.subtitle}</p>
                 </div>
               </div>
               <ChevronRight size={16} className="text-slate-300 group-hover:translate-x-1 transition-transform" />
@@ -83,13 +85,9 @@ export const VotingProcessPage = () => {
           </div>
         </div>
         
-        {/* Right Illustration */}
-        <div className="absolute top-0 right-[-10px] w-[50%] h-[110%] pointer-events-none z-0 flex items-center justify-end">
-          <img 
-            src={votingHeroImg} 
-            alt="Voting Process Illustration" 
-            className="h-full w-full object-contain object-right" 
-          />
+        {/* Hero Image */}
+        <div className="absolute top-0 right-0 bottom-0 w-[45%] pointer-events-none flex items-center justify-end z-0 pr-2">
+          <img src={votingHeroImg} alt="Voting Process Illustration" className="w-full h-auto max-h-[140px] object-contain object-right" />
         </div>
       </div>
 
@@ -101,7 +99,7 @@ export const VotingProcessPage = () => {
           <div className="bg-white border border-slate-100 p-6 rounded-[28px] shadow-sm flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-[#146A4A] text-white flex items-center justify-center text-[14px] font-bold">1</div>
-              <h3 className="font-bold text-[17px] text-emerald-900">Before You Go</h3>
+              <h3 className="font-bold text-[17px] text-emerald-900">{t.sections.step1.title}</h3>
             </div>
             
             <div className="flex justify-center py-6 bg-slate-50/50 rounded-2xl border border-slate-100/30 overflow-hidden h-[160px]">
@@ -109,7 +107,7 @@ export const VotingProcessPage = () => {
             </div>
 
             <ul className="flex flex-col gap-3">
-              {['Check your name in voter list', 'Know your polling booth location', 'Carry a valid ID'].map((text, i) => (
+              {t.sections.step1.items.map((text, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0" />
                   <span className="text-[13px] text-slate-600 font-bold leading-tight">{text}</span>
@@ -118,7 +116,7 @@ export const VotingProcessPage = () => {
             </ul>
 
             <div className="mt-auto pt-4 border-t border-slate-50 text-center">
-              <span className="text-[11px] font-extrabold text-emerald-600 px-4 py-2 bg-emerald-50 rounded-full inline-block uppercase tracking-wider">Be prepared, save time!</span>
+              <span className="text-[11px] font-extrabold text-emerald-600 px-4 py-2 bg-emerald-50 rounded-full inline-block uppercase tracking-wider">{t.sections.step1.badge}</span>
             </div>
           </div>
 
@@ -126,7 +124,7 @@ export const VotingProcessPage = () => {
           <div className="bg-white border border-slate-100 p-6 rounded-[28px] shadow-sm flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[14px] font-bold">2</div>
-              <h3 className="font-bold text-[17px] text-indigo-900">At the Polling Booth</h3>
+              <h3 className="font-bold text-[17px] text-indigo-900">{t.sections.step2.title}</h3>
             </div>
             
             <div className="flex justify-center py-6 bg-slate-50/50 rounded-2xl border border-slate-100/30 overflow-hidden h-[160px]">
@@ -134,12 +132,7 @@ export const VotingProcessPage = () => {
             </div>
 
             <ol className="flex flex-col gap-3">
-              {[
-                "Show your ID",
-                "Your finger will be marked with ink",
-                "Go to voting machine (EVM)",
-                "Press button for your candidate"
-              ].map((text, i) => (
+              {t.sections.step2.steps.map((text, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">{i+1}</div>
                   <span className="text-[13px] text-slate-600 font-bold leading-tight">{text}</span>
@@ -152,7 +145,7 @@ export const VotingProcessPage = () => {
           <div className="bg-white border border-slate-100 p-6 rounded-[28px] shadow-sm flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-[14px] font-bold">3</div>
-              <h3 className="font-bold text-[17px] text-blue-900">After Voting</h3>
+              <h3 className="font-bold text-[17px] text-blue-900">{t.sections.step3.title}</h3>
             </div>
             
             <div className="flex justify-center py-6 bg-slate-50/50 rounded-2xl border border-slate-100/30 overflow-hidden h-[160px]">
@@ -162,17 +155,17 @@ export const VotingProcessPage = () => {
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                <span className="text-[13px] text-slate-600 font-bold leading-tight">Check VVPAT slip<br/><span className="text-slate-400 text-[11px] font-medium">(confirmation window)</span></span>
+                <span className="text-[13px] text-slate-600 font-bold leading-tight whitespace-pre-line">{t.sections.step3.items[0].title} {t.sections.step3.items[0].subtitle}</span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0" />
-                <span className="text-[13px] text-slate-600 font-bold leading-tight">Exit polling station</span>
+                <span className="text-[13px] text-slate-600 font-bold leading-tight">{t.sections.step3.items[1]}</span>
               </li>
             </ul>
 
             <div className="mt-auto pt-4 border-t border-slate-50">
                <div className="flex items-center justify-center gap-2 text-blue-600 bg-blue-50 py-2 rounded-full border border-blue-100 shadow-sm">
-                 <span className="text-[10px] font-extrabold uppercase tracking-widest">Your vote is secret and secure</span>
+                 <span className="text-[10px] font-extrabold uppercase tracking-widest">{t.sections.step3.badge}</span>
                  <Shield size={14} />
                </div>
             </div>
@@ -183,24 +176,25 @@ export const VotingProcessPage = () => {
         <div className="bg-white border border-slate-100 p-8 rounded-[36px] shadow-sm relative overflow-hidden">
           <div className="relative z-10 flex flex-col md:flex-row gap-10 items-center justify-between">
             <div className="flex-1">
-              <h3 className="font-bold text-[20px] text-slate-800 mb-2">What ID Can You Carry?</h3>
-              <p className="text-[14px] text-slate-400 font-bold mb-8">You can carry any <span className="text-[#1C51E3]">ONE</span> of these:</p>
+              <h3 className="font-bold text-[20px] text-slate-800 mb-2">{t.sections.idProof.title}</h3>
+              <p className="text-[14px] text-slate-400 font-bold mb-8 whitespace-pre-line">{t.sections.idProof.description}</p>
               
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-6">
-                {[
-                  { icon: IdCard, label: "Voter ID (EPIC)", color: "text-emerald-500", bg: "bg-emerald-50" },
-                  { icon: Sun, label: "Aadhaar", color: "text-orange-500", bg: "bg-orange-50" },
-                  { icon: Globe, label: "Passport", color: "text-blue-500", bg: "bg-blue-50" },
-                  { icon: Car, label: "Driving License", color: "text-amber-500", bg: "bg-amber-50" },
-                  { icon: CreditCard, label: "PAN Card", color: "text-purple-500", bg: "bg-purple-50" }
-                ].map((id, i) => (
-                  <div key={i} className="flex flex-col items-center gap-3">
-                    <div className={`w-14 h-14 rounded-full ${id.bg} ${id.color} flex items-center justify-center shadow-sm border border-slate-100/50`}>
-                      <id.icon size={26} />
+                {t.sections.idProof.items.map((id, i) => {
+                  const icons = [IdCard, Sun, Globe, Car, CreditCard];
+                  const colors = ["text-emerald-500", "text-orange-500", "text-blue-500", "text-amber-500", "text-purple-500"];
+                  const bgs = ["bg-emerald-50", "bg-orange-50", "bg-blue-50", "bg-amber-50", "bg-purple-50"];
+                  const Icon = icons[i] || IdCard;
+                  
+                  return (
+                    <div key={i} className="flex flex-col items-center gap-3">
+                      <div className={`w-14 h-14 rounded-full ${bgs[i]} ${colors[i]} flex items-center justify-center shadow-sm border border-slate-100/50`}>
+                        <Icon size={26} />
+                      </div>
+                      <span className="text-[11px] font-bold text-slate-500 text-center leading-tight">{id.label}</span>
                     </div>
-                    <span className="text-[11px] font-bold text-slate-500 text-center leading-tight">{id.label}</span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -208,8 +202,8 @@ export const VotingProcessPage = () => {
               <div className="absolute -top-3 -right-3 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 shadow-sm">
                 <ShieldCheck size={18} />
               </div>
-              <p className="text-[14px] text-slate-700 font-bold leading-relaxed">
-                You can vote even <span className="text-orange-600 underline underline-offset-4">without voter ID card</span> if your name is in voter list.
+              <p className="text-[14px] text-slate-700 font-bold leading-relaxed whitespace-pre-line">
+                {t.sections.idProof.note}
               </p>
             </div>
           </div>
@@ -217,7 +211,7 @@ export const VotingProcessPage = () => {
 
         {/* Section 3: Important Rules */}
         <div className="flex flex-col gap-4">
-          <h3 className="font-bold text-[17px] text-slate-800 tracking-tight">Important Rules</h3>
+          <h3 className="font-bold text-[17px] text-slate-800 tracking-tight">{t.sections.rules.title}</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-white border border-slate-100 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
               <div className="w-11 h-11 rounded-full bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0 border border-red-100 relative overflow-hidden">
@@ -226,7 +220,7 @@ export const VotingProcessPage = () => {
                    <div className="w-[140%] h-[2.5px] bg-red-500/80 rotate-[35deg]" />
                  </div>
               </div>
-              <span className="text-[14px] text-slate-600 font-bold">No mobile phones inside booth</span>
+              <span className="text-[14px] text-slate-600 font-bold">{t.sections.rules.items[0]}</span>
             </div>
             <div className="bg-white border border-slate-100 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
               <div className="w-11 h-11 rounded-full bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0 border border-red-100 relative overflow-hidden">
@@ -235,20 +229,20 @@ export const VotingProcessPage = () => {
                    <div className="w-[140%] h-[2.5px] bg-red-500/80 rotate-[35deg]" />
                  </div>
               </div>
-              <span className="text-[14px] text-slate-600 font-bold">No photography or recording</span>
+              <span className="text-[14px] text-slate-600 font-bold">{t.sections.rules.items[1]}</span>
             </div>
             <div className="bg-white border border-slate-100 rounded-2xl p-5 flex items-center gap-4 shadow-sm">
               <div className="w-11 h-11 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center flex-shrink-0 border border-blue-100">
                  <Users size={20} />
               </div>
-              <span className="text-[14px] text-slate-600 font-bold">Follow polling staff instructions</span>
+              <span className="text-[14px] text-slate-600 font-bold">{t.sections.rules.items[2]}</span>
             </div>
           </div>
         </div>
 
         {/* Section 4: Quick Help */}
         <div className="flex flex-col gap-4">
-          <h3 className="font-bold text-[17px] text-slate-800 tracking-tight">Quick Help (Voting Day Issues)</h3>
+          <h3 className="font-bold text-[17px] text-slate-800 tracking-tight">{t.sections.quickHelp.title}</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
              <div className="bg-white border border-slate-100 rounded-[24px] p-5 flex flex-col gap-4 shadow-sm">
@@ -256,8 +250,8 @@ export const VotingProcessPage = () => {
                   <X size={20} strokeWidth={3} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">My name not found at booth?</h4>
-                  <p className="text-[12px] text-slate-400 font-bold leading-relaxed">Re-check voter list and details.</p>
+                  <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">{t.sections.quickHelp.items[0].title}</h4>
+                  <p className="text-[12px] text-slate-400 font-bold leading-relaxed">{t.sections.quickHelp.items[0].description}</p>
                 </div>
              </div>
 
@@ -266,8 +260,8 @@ export const VotingProcessPage = () => {
                   <IdCard size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">I forgot my voter ID?</h4>
-                  <p className="text-[12px] text-slate-400 font-bold leading-relaxed">Use any other valid ID from the list.</p>
+                  <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">{t.sections.quickHelp.items[1].title}</h4>
+                  <p className="text-[12px] text-slate-400 font-bold leading-relaxed">{t.sections.quickHelp.items[1].description}</p>
                 </div>
              </div>
 
@@ -276,13 +270,13 @@ export const VotingProcessPage = () => {
                   <Clock size={20} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">Long queue?</h4>
-                  <p className="text-[12px] text-slate-400 font-bold leading-relaxed">You can still vote if in line before closing.</p>
+                  <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">{t.sections.quickHelp.items[2].title}</h4>
+                  <p className="text-[12px] text-slate-400 font-bold leading-relaxed">{t.sections.quickHelp.items[2].description}</p>
                 </div>
              </div>
 
              <button 
-                onClick={() => navigate(ROUTES.EMERGENCY)}
+                onClick={() => navigate(ROUTES.FAQ)}
                 className="bg-blue-50/50 border border-blue-100 rounded-[24px] p-5 flex flex-col gap-4 shadow-sm hover:bg-blue-100/50 transition-all text-left group"
              >
                 <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-blue-600 shadow-sm">
@@ -290,10 +284,10 @@ export const VotingProcessPage = () => {
                 </div>
                 <div>
                   <div className="flex items-center justify-between">
-                    <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">More issues?</h4>
+                    <h4 className="font-bold text-[14px] text-slate-800 mb-1 leading-tight">{t.sections.quickHelp.items[3].title}</h4>
                     <ChevronRight size={16} className="text-blue-500 group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <p className="text-[12px] text-blue-600 font-extrabold uppercase tracking-wider mt-1">View All Issues</p>
+                  <p className="text-[12px] text-blue-600 font-extrabold uppercase tracking-wider mt-1">{t.sections.quickHelp.items[3].button}</p>
                 </div>
              </button>
           </div>
@@ -308,8 +302,8 @@ export const VotingProcessPage = () => {
              <CheckCircle2 size={40} strokeWidth={2.5} />
            </div>
            <div className="z-10 text-center md:text-left">
-             <h3 className="text-emerald-900 font-extrabold text-[22px] mb-2 tracking-tight">You successfully cast your vote.</h3>
-             <p className="text-emerald-700 font-bold text-[15px] leading-relaxed">Your vote is counted securely. You participated in democracy.</p>
+             <h3 className="text-emerald-900 font-extrabold text-[22px] mb-2 tracking-tight">{t.sections.success.title}</h3>
+             <p className="text-emerald-700 font-bold text-[15px] leading-relaxed">{t.sections.success.description}</p>
            </div>
         </div>
 
@@ -317,11 +311,11 @@ export const VotingProcessPage = () => {
         <div className="bg-[#EEF2FF] border border-blue-100 rounded-[24px] p-5 flex flex-col md:flex-row gap-4 items-center justify-center shadow-sm">
            <div className="flex items-center gap-2.5 text-blue-600 font-extrabold text-[15px]">
              <Shield size={20} />
-             <span>Voting is your right.</span>
+             <span>{t.sections.trustNote.right}</span>
            </div>
            <div className="hidden md:block w-px h-6 bg-blue-200 mx-2" />
            <p className="text-[14px] text-slate-500 font-bold">
-             Every vote is confidential and secure.
+             {t.sections.trustNote.confidential}
            </p>
         </div>
 
